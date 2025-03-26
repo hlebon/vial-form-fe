@@ -8,6 +8,9 @@ export const testingFormSchema = {
   required: [],
 };
 
+// For a global state management, I decided for a simpler and faster solution.
+// I like this approach because it requires minimal boilerplate and allows me to stay building without sacrificing clarity or complexity
+
 type FormBuilderStoreProps = {
   isFieldPickerOpen: boolean;
   openFieldPickerModal: () => void;

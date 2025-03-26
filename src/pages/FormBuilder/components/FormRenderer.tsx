@@ -27,6 +27,14 @@ export function FormRenderer() {
 
   return (
     <Box width="100%">
+      {/* for this app I decided to use react-jsonschema-form instead of building a custom form renderer.
+        I think there are several benefits to use it:
+
+        1. Faster development: This is an existing and well supported solution, that we can use and be productive from day one
+        2. flexbility: having used it before, I know it offers a solid API to handle even complex form structures with ease.
+        3. The approach I’m using makes it easy to migrate to another tool or even build our own renderer later. .
+
+      */}
       <Form
         key={JSON.stringify(form)}
         schema={form}
