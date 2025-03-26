@@ -36,10 +36,6 @@ export function Forms() {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetForm();
 
-  // const handleListItemClick = (id: string) => {
-  //   navigate(`/form-builder/${id}`);
-  // };
-
   const handleGoToFormBuilder = () => {
     navigate('/form-builder');
   };
@@ -47,6 +43,10 @@ export function Forms() {
   const handlePlayForm = (id: string) => {
     navigate(`/form-preview/${id}`);
   };
+
+  const handleGoToRecords = (id: string) => {
+    navigate(`/form-records/${id}`)
+  }
 
   const forms = data?.data || [];
 
@@ -74,7 +74,7 @@ export function Forms() {
                 <Box display="flex" gap="2">
 
                   <Tooltip title="See form submissions">
-                    <IconButton aria-label="See form submissions" onClick={() => handlePlayForm(id)}>
+                    <IconButton aria-label="See form submissions" onClick={() => handleGoToRecords(id)}>
                       <ChecklistOutlinedIcon color='primary' />
                     </IconButton>
                   </Tooltip>
@@ -91,7 +91,6 @@ export function Forms() {
                 color='primary'
                 divider
                 sx={{ width: '100%' }}
-              // onClick={() => handleListItemClick(id)}
               >
                 <ListItemIcon>
                   <ArticleOutlinedIcon sx={{ color: 'primary.light' }} />

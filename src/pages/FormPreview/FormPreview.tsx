@@ -1,7 +1,7 @@
 import { Box, Button } from '@mui/material';
 import validator from '@rjsf/validator-ajv8';
 import { withTheme } from '@rjsf/core';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Theme } from '@rjsf/mui';
 import { Page } from '@components/Page';
 import { useGetForm } from '../../api/useGetForm';
@@ -15,9 +15,11 @@ const Form = withTheme(Theme);
 export function FormPreview() {
   const { id } = useParams();
 
+  const navigate = useNavigate()
+
   const { data, isLoading, isError } = useGetForm(id);
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, } = useMutation({
     mutationFn: formsSubmissionsApi.submit
   });
 
@@ -37,7 +39,7 @@ export function FormPreview() {
             return details;
           });
           await mutateAsync({ formId: id || '', answers: formResponses });
-
+          navigate('/');
         }}
       >
         <Box display="flex" justifyContent="flex-end" mt={2}>

@@ -3,6 +3,7 @@ import { FormBuilder } from '@pages/FormBuilder';
 import { Forms } from '@pages/Forms';
 import { FormPreview } from '@pages/FormPreview';
 import { EditForm } from '@pages/EditForm/EditForm';
+import { FormRecords } from '@pages/FormRecords/FormRecord';
 
 export const router = createBrowserRouter([
   {
@@ -20,5 +21,9 @@ export const router = createBrowserRouter([
   {
     path: '/form-preview/:id',
     element: <FormPreview />,
+  },
+  {
+    path: '/form-records/:id',
+    element: <FormRecords />,
   },
 ]);

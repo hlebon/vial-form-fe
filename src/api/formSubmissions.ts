@@ -8,4 +8,7 @@ export const formsSubmissionsApi = {
   submit: (data: FormSubmission) => {
     return api.post('/form-submissions', data);
   },
+  getRecordsById: (id: string) => {
+    return api.get(`/form-submissions/${id}`);
+  },
 };

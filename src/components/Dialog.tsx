@@ -36,6 +36,7 @@ export function Dialog({
               Save
             </Button>
           )}
+          {onClose && <Button onClick={onClose}>Close</Button>}
         </DialogActions>
       </MUDialog>
     </React.Fragment>
