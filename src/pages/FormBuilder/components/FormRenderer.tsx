@@ -8,18 +8,10 @@ import { useFormBuilderStore } from '@store/FormBuilderStore';
 import { ObjectFieldTemplate } from './CustomFieldTemplate';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
+import { formsApi } from '@api/forms';
 
 const Form = withTheme(Theme);
 
-const createForm = async (data: { title: string; schema: object }) => {
-  const response = await fetch('http://localhost:8080/form', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) throw new Error('Error al crear formulario');
-  return response.json();
-};
 
 export function FormRenderer() {
   const navigate = useNavigate();
@@ -27,7 +19,7 @@ export function FormRenderer() {
   const form = useFormBuilderStore((state) => state.formSchema);
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: createForm,
+    mutationFn: formsApi.createForm,
     onSuccess: () => {
       navigate(`/`);
     },

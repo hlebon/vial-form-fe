@@ -18,7 +18,7 @@ export function FormPreview() {
   const { data, isLoading, isError } = useGetForm(id);
 
   const { mutateAsync } = useMutation({
-    mutationFn: formsSubmissionsApi.submit,
+    mutationFn: formsSubmissionsApi.submit
   });
 
   return (
