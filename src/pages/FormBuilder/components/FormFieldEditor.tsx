@@ -12,10 +12,28 @@ const formStyles: React.CSSProperties = {
   gap: '10px',
 };
 
-const styles: Record<"saveButton" | "container", SxProps> = {
-  saveButton: { mt: "20px", pt: "10px", pb: "10px" },
-  container: { width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' }
+function getExtraFields(type: string, field: Record<string, any>) {
+  if (type === 'string') {
+    return {
+      minLength: field?.minLength || '',
+      maxLength: field?.maxLength || '',
+    };
+  }
+
+  if (type === 'number' || type === 'integer') {
+    return {
+      minimum: field?.minimum || '',
+      maximum: field?.maximum || '',
+    };
+  }
+
+  return {};
 }
+
+const styles: Record<'saveButton' | 'container', SxProps> = {
+  saveButton: { mt: '20px', pt: '10px', pb: '10px' },
+  container: { width: '100%', display: 'flex', flexDirection: 'column', gap: '10px' },
+};
 
 export function FormFieldEditor() {
   const isOpen = useFormBuilderStore((state) => state.isFieldEditorOpen);
@@ -39,6 +57,7 @@ export function FormFieldEditor() {
     title: field?.title || '',
     description: field?.description || '',
     required: isFieldRequired,
+    ...getExtraFields(field?.type, field),
   };
 
   return (
@@ -53,12 +72,27 @@ export function FormFieldEditor() {
           return errors;
         }}
         onSubmit={({ required, ...rest }) => {
-          updateField(rest);
+          const formSchema: Record<string, string> = {};
+
+          const uiFormSchema: Record<string, string> = {};
+
+          Object.entries(rest).forEach(([key, value]) => {
+            if (!value) {
+              return;
+            }
+            if (key.startsWith('ui:')) {
+              uiFormSchema[key] = value;
+            } else {
+              formSchema[key] = value;
+            }
+          });
+
+          updateField(formSchema);
           setFieldRequired(required);
           closeFieldEditorModal();
         }}
       >
-        {({ isSubmitting }) => {
+        {({ isSubmitting, values }) => {
           return (
             <Form style={formStyles}>
               <Box sx={styles.container}>
@@ -70,7 +104,37 @@ export function FormFieldEditor() {
                   Label={{ label: 'Required' }}
                 />
                 <Field name="description" component={TextField} label="Description" />
-                <Button sx={styles.saveButton} type="submit" variant="contained" color="primary" fullWidth disabled={isSubmitting}>
+                {['integer', 'number'].includes(field?.type) && (
+                  <>
+                    <Field name="minimum" type="number" component={TextField} label="Minimum" />
+                    <Field name="maximum" type="number" component={TextField} label="Maximum" />
+                  </>
+                )}
+                {field?.type === 'string' && (
+                  <>
+                    <Field
+                      name="minLength"
+                      type="number"
+                      component={TextField}
+                      label="Min length"
+                    />
+                    <Field
+                      name="maxLength"
+                      type="number"
+                      component={TextField}
+                      label="Max length"
+                    />
+                  </>
+                )}
+
+                <Button
+                  sx={styles.saveButton}
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  disabled={isSubmitting}
+                >
                   Save
                 </Button>
               </Box>

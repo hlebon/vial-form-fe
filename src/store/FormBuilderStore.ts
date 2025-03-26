@@ -1,12 +1,14 @@
 import { create } from 'zustand';
 import { generateId } from '../helpers/generateId';
 
-export const testingFormSchema = {
+export const defaultFormSchema = {
   title: '',
   type: 'object',
   properties: {},
   required: [],
 };
+
+const cloneObject = (obj: any) => JSON.parse(JSON.stringify(obj));
 
 // For a global state management, I decided for a simpler and faster solution.
 // I like this approach because it requires minimal boilerplate and allows me to stay building without sacrificing clarity or complexity
@@ -38,7 +40,7 @@ export const useFormBuilderStore = create<FormBuilderStoreProps>((set) => ({
   closeFieldPickerModal: () => set({ isFieldPickerOpen: false }),
   openFieldEditorModal: (key) => set({ isFieldEditorOpen: true, fieldToEdit: key }),
   closeFieldEditorModal: () => set({ isFieldEditorOpen: false, fieldToEdit: null }),
-  formSchema: testingFormSchema,
+  formSchema: cloneObject(defaultFormSchema),
   addAPropertyToSchema: (name: string, property: any) => {
     set((state) => {
       const newSchema = { ...state.formSchema };
@@ -83,15 +85,18 @@ export const useFormBuilderStore = create<FormBuilderStoreProps>((set) => ({
     set((state) => {
       const key = state.fieldToEdit;
       const newSchema = { ...state.formSchema };
+
       if (isRequired) {
-        newSchema.required.push(key);
+        if (!newSchema.required.includes(key)) {
+          newSchema.required.push(key);
+        }
       } else {
         newSchema.required = newSchema.required.filter((k: string) => k !== key);
       }
       return { formSchema: newSchema };
     });
   },
-  initFormSchema: (formSchema?: any) => {
-    set({ formSchema: formSchema || testingFormSchema });
+  initFormSchema: (formSchema = cloneObject(defaultFormSchema)) => {
+    set({ formSchema });
   },
 }));

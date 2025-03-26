@@ -12,7 +12,6 @@ import { formsApi } from '@api/forms';
 
 const Form = withTheme(Theme);
 
-
 export function FormRenderer() {
   const navigate = useNavigate();
 
@@ -39,27 +38,27 @@ export function FormRenderer() {
         key={JSON.stringify(form)}
         schema={form}
         validator={validator}
+        noValidate
+        noHtml5Validate
         templates={{ ObjectFieldTemplate: ObjectFieldTemplate }}
         disabled={isPending}
+        onSubmit={({ schema }) => {
+          mutateAsync({ title: schema.title, schema });
+        }}
+        onError={(e) => {
+          console.log('error', e);
+        }}
       >
-        <Box sx={{ marginTop: "20px" }}>
+        <Box sx={{ marginTop: '20px' }}>
           <FormFieldBuilder />
         </Box>
 
-        <Box sx={{ display: 'flex', gap: 2, mt: 2, mb: 2, justifyContent: "flex-end" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={(e) => {
-              e.preventDefault();
-              mutateAsync({ title: form.title, schema: form });
-            }}
-          >
+        <Box sx={{ display: 'flex', gap: 2, mt: 2, mb: 2, justifyContent: 'flex-end' }}>
+          <Button variant="contained" color="primary" type="submit">
             Save Form Schema
           </Button>
         </Box>
       </Form>
-
       <FormFieldDialog />
     </Box>
   );

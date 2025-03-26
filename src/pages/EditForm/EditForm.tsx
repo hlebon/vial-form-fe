@@ -19,8 +19,6 @@ export function EditForm() {
   useEffect(() => {
     if (isSuccess) {
       initFormSchema(data.data.fields);
-      console.log('Form loaded successfully');
-      console.log({ data });
     }
   }, [isSuccess, id]);
 

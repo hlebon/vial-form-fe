@@ -59,7 +59,6 @@ const FIELDS = [
     template: {
       type: 'integer',
       title: 'Age',
-      minimum: 0,
     },
   },
   {
@@ -113,14 +112,14 @@ export function FormFieldPicker() {
           return (
             <Button
               startIcon={icon}
-              variant='outlined'
+              variant="outlined"
               key={id}
               onClick={() => {
                 addAPropertyToSchema(name, template);
                 closeFieldPickerModal();
               }}
               fullWidth
-              sx={{ width: "calc((100% / 3) - 10px)" }}
+              sx={{ width: 'calc((100% / 3) - 10px)' }}
             >
               {label}
             </Button>

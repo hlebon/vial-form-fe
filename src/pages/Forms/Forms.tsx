@@ -10,7 +10,7 @@ import {
   ListItemText,
   Typography,
   Tooltip,
-  SxProps
+  SxProps,
 } from '@mui/material';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
@@ -19,11 +19,11 @@ import ChecklistOutlinedIcon from '@mui/icons-material/ChecklistOutlined';
 import { useNavigate } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import { formsApi } from '@api/forms';
+import { useFormBuilderStore } from '@store/FormBuilderStore';
 
-
-const styles: Record<"list", SxProps> = {
-  list: { display: 'flex', gap: '10px', flexDirection: 'column' }
-}
+const styles: Record<'list', SxProps> = {
+  list: { display: 'flex', gap: '10px', flexDirection: 'column' },
+};
 
 function useGetForm() {
   return useQuery({
@@ -36,7 +36,10 @@ export function Forms() {
   const navigate = useNavigate();
   const { data, isLoading, isError, error } = useGetForm();
 
+  const initFormSchema = useFormBuilderStore((state) => state.initFormSchema);
+
   const handleGoToFormBuilder = () => {
+    initFormSchema();
     navigate('/form-builder');
   };
 
@@ -45,8 +48,8 @@ export function Forms() {
   };
 
   const handleGoToRecords = (id: string) => {
-    navigate(`/form-records/${id}`)
-  }
+    navigate(`/form-records/${id}`);
+  };
 
   const forms = data?.data || [];
 
@@ -58,8 +61,15 @@ export function Forms() {
         alignItems={'center'}
         justifyContent={'space-between'}
       >
-        <Typography variant='h4' sx={{ fontWeight: 700 }}>Forms</Typography>
-        <Button variant="outlined" onClick={handleGoToFormBuilder} startIcon={<AddIcon />} sx={{ borderWidth: `2px` }}>
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>
+          Forms
+        </Typography>
+        <Button
+          variant="outlined"
+          onClick={handleGoToFormBuilder}
+          startIcon={<AddIcon />}
+          sx={{ borderWidth: `2px` }}
+        >
           Create Form
         </Button>
       </Box>
@@ -72,26 +82,23 @@ export function Forms() {
               disablePadding
               secondaryAction={
                 <Box display="flex" gap="2">
-
                   <Tooltip title="See form submissions">
-                    <IconButton aria-label="See form submissions" onClick={() => handleGoToRecords(id)}>
-                      <ChecklistOutlinedIcon color='primary' />
+                    <IconButton
+                      aria-label="See form submissions"
+                      onClick={() => handleGoToRecords(id)}
+                    >
+                      <ChecklistOutlinedIcon color="primary" />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Complete form">
                     <IconButton aria-label="Complete form" onClick={() => handlePlayForm(id)}>
-                      <PlayArrowIcon color='primary' />
+                      <PlayArrowIcon color="primary" />
                     </IconButton>
                   </Tooltip>
                 </Box>
-
               }
             >
-              <ListItemButton
-                color='primary'
-                divider
-                sx={{ width: '100%' }}
-              >
+              <ListItemButton color="primary" divider sx={{ width: '100%' }}>
                 <ListItemIcon>
                   <ArticleOutlinedIcon sx={{ color: 'primary.light' }} />
                 </ListItemIcon>

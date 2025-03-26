@@ -10,17 +10,15 @@ import { formsSubmissionsApi } from '@api/formSubmissions';
 
 const Form = withTheme(Theme);
 
-
-
 export function FormPreview() {
   const { id } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useGetForm(id);
 
-  const { mutateAsync, } = useMutation({
-    mutationFn: formsSubmissionsApi.submit
+  const { mutateAsync } = useMutation({
+    mutationFn: formsSubmissionsApi.submit,
   });
 
   return (
