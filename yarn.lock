@@ -358,16 +358,6 @@
   resolved "https://registry.yarnpkg.com/@fontsource/arvo/-/arvo-5.2.5.tgz#db474da3f3d905aa8499661be7ee1bf2e7488a47"
   integrity sha512-jMoy5qC85ntOr6KGqUIBKqB1/71YnNnSoIUloomx6KabseJKp2pQfc+zQdWe8Bdwk8xmya9Co+NF4mwxk67P5A==
 
-"@fontsource/libre-baskerville@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/libre-baskerville/-/libre-baskerville-5.2.5.tgz#4eb9bfeaf02dfb6c6469255f6d71dbbf70f7a1e4"
-  integrity sha512-Gi/TTnkg1Ui6/AoilZ07pCDJbloB10GKljyegqiKzlolaaFuXIfLfl0ROHfzWYG1Kjxid7femmxOXCNaCEo5tw==
-
-"@fontsource/lora@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/lora/-/lora-5.2.5.tgz#ea0babf2e3584701451cf3445636ee5b268346c5"
-  integrity sha512-Jr+jXw+0USPcCBKFfEyPgwKV3dD6w066PIC+1VXgINwjkOEXVX6enqEjz7uGe2WoUjOG+VbIPp4SIlzpMlWzdw==
-
 "@fontsource/poppins@^5.2.5":
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@fontsource/poppins/-/poppins-5.2.5.tgz#038958aa6945f12875d37bda8f442eff54a2d636"

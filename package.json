@@ -13,8 +13,6 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fontsource/arvo": "^5.2.5",
-    "@fontsource/libre-baskerville": "^5.2.5",
-    "@fontsource/lora": "^5.2.5",
     "@fontsource/poppins": "^5.2.5",
     "@fontsource/roboto": "^5.0.13",
     "@material-ui/core": "^4.12.4",
