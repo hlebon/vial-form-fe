@@ -9,6 +9,8 @@ export const formsSubmissionsApi = {
     return api.post('/form-submissions', data);
   },
   getRecordsById: (id: string) => {
-    return api.get(`/form-submissions/${id}`);
+    return api.get(`/form-submissions/${id}`) as Promise<{
+      data: { id: string; answers: { asnwer: string; questions: string }[] }[];
+    }>;
   },
 };

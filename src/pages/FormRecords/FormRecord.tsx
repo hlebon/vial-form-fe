@@ -40,7 +40,8 @@ export function FormRecords() {
         setAnswers(answers)
     }
 
-    const forms = data?.data || [];
+
+    const records = data?.data || [];
 
     return (
         <Page title="Form Records" isLoading={isLoading} isError={isError} error={error}>
@@ -54,7 +55,7 @@ export function FormRecords() {
 
             </Box>
             <List sx={styles.list}>
-                {forms.map(({ id, answers }: any) => {
+                {records.map(({ id, answers }) => {
                     return (
                         <ListItem
                             key={id}
@@ -89,7 +90,7 @@ export function FormRecords() {
                 <Box>
                     {answers?.map(({ question, answer }) => {
                         return (
-                            <Box>
+                            <Box key={question}>
                                 {question} : {answer}
                             </Box>
                         )
