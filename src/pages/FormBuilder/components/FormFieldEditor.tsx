@@ -92,7 +92,7 @@ export function FormFieldEditor() {
           closeFieldEditorModal();
         }}
       >
-        {({ isSubmitting, values }) => {
+        {({ isSubmitting }) => {
           return (
             <Form style={formStyles}>
               <Box sx={styles.container}>
